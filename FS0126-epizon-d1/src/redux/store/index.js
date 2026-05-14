@@ -1,11 +1,17 @@
 // questo file sarà responsabile della creazione del Redux Store, il cervellone centralizzato
 // dove verranno salvati i dati a livello dell'applicativo
 
-import { configureStore } from '@reduxjs/toolkit'
-import mainReducer from '../reducers'
+import { configureStore, combineReducers } from "@reduxjs/toolkit"
+import cartReducer from "../reducers/cartReducer"
+import userReducer from "../reducers/userReducer"
+// Siccome abbiamo diviso i reducers in più pezzi usiamo combineReducers che riunisce i vari file di reducers
+// è una funzione che accetta tanti reducers che gestiscono le parti e ne ritorna uno unico
 
 const store = configureStore({
-  reducer: mainReducer, // inserisco il reducer scritto in reducers/index.js
+  reducer: combineReducers({
+    cart: cartReducer,
+    user: userReducer,
+  }),
 })
 // "store" è proprio il Redux Store
 
