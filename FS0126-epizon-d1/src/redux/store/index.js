@@ -4,6 +4,7 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit"
 import cartReducer from "../reducers/cartReducer"
 import userReducer from "../reducers/userReducer"
+import shopReducer from "../reducers/shopReducer"
 // Siccome abbiamo diviso i reducers in più pezzi usiamo combineReducers che riunisce i vari file di reducers
 // è una funzione che accetta tanti reducers che gestiscono le parti e ne ritorna uno unico
 
@@ -11,6 +12,8 @@ const store = configureStore({
   reducer: combineReducers({
     cart: cartReducer,
     user: userReducer,
+    shop: shopReducer,
+    //dopo la fetch
   }),
 })
 // "store" è proprio il Redux Store
