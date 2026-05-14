@@ -1,6 +1,7 @@
-import { Col, Row, Button } from 'react-bootstrap'
-import { FaShoppingCart } from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
+import { Col, Row, Button } from "react-bootstrap"
+import { FaShoppingCart } from "react-icons/fa"
+import { useDispatch } from "react-redux"
+import { addToCartCreator } from "../redux/actions"
 
 const BookDetail = ({ bookSelected }) => {
   const dispatch = useDispatch()
@@ -17,11 +18,7 @@ const BookDetail = ({ bookSelected }) => {
           <Row className="mt-3">
             <Col sm={4}>
               <div className="mt-3">
-                <img
-                  className="book-cover"
-                  src={bookSelected.imageUrl}
-                  alt="book selected"
-                />
+                <img className="book-cover" src={bookSelected.imageUrl} alt="book selected" />
               </div>
             </Col>
             <Col sm={8}>
@@ -36,12 +33,8 @@ const BookDetail = ({ bookSelected }) => {
               <Button
                 className="d-flex align-items-center"
                 onClick={() => {
-                  dispatch({
-                    type: 'ADD_TO_CART', // si segue la nomenclatura delle costanti, es. URL
-                    payload: bookSelected,
-                  })
-                }}
-              >
+                  dispatch(addToCartCreator(bookSelected))
+                }}>
                 <span className="me-2">AGGIUNGI AL</span>
                 <FaShoppingCart />
               </Button>

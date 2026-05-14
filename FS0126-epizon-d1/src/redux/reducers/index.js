@@ -3,6 +3,8 @@
 // il suo scopo è creare e mantenere lo stato di Redux
 // il reducer verrà azionato AUTOMATICAMENTE da REDUX ogni volta che si effettua il dispatch di una action
 
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions"
+
 // ogni reducer è una funzione PURA, ciò significa tra le altre cose che:
 // - NON MUTA i propri parametri
 // - NON effettua side-effects, chiamate API etc.
@@ -25,7 +27,7 @@ const mainReducer = (state = initialState, action) => {
   // lo fa analizzando l'unica proprietà obbligatoria della action ("type") e prendendo delle decisioni in autonomia
 
   switch (action.type) {
-    case 'ADD_TO_CART':
+    case ADD_TO_CART:
       return {
         // tutti questi ... servono per ricreare la struttura dell'oggetto precedente!
         // anche se voglio solamente aggiungere un elemento a content, non posso rischiare di
@@ -42,7 +44,7 @@ const mainReducer = (state = initialState, action) => {
         // con gli array in maniera NON-MUTATIVA (https://doesitmutate.xyz)
       }
 
-    case 'REMOVE_FROM_CART':
+    case REMOVE_FROM_CART:
       // ...e anche qui ritorneremo il nuovo stato di Redux
       return {
         ...state,
@@ -58,9 +60,7 @@ const mainReducer = (state = initialState, action) => {
           //   }
           // }),
           // VERSIONE DAVIDE
-          content: state.cart.content.filter(
-            (libro) => libro.id !== action.payload,
-          ),
+          content: state.cart.content.filter((libro) => libro.id !== action.payload),
           // devo creare un nuovo content in cui c'è un elemento di meno rispetto al content attuale
         },
       }
