@@ -13,7 +13,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <BrowserRouter>
-        <Container className="epizon-container">
+        <Container fluid className="epizon-container">
           <Row>
             <Col className="text-center background-div">
               <Link to="/">
