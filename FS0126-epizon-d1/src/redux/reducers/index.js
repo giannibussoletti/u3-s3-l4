@@ -3,7 +3,7 @@
 // il suo scopo è creare e mantenere lo stato di Redux
 // il reducer verrà azionato AUTOMATICAMENTE da REDUX ogni volta che si effettua il dispatch di una action
 
-import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions"
+import { ADD_TO_CART, REMOVE_FROM_CART, USER_LOGGED } from "../actions"
 
 // ogni reducer è una funzione PURA, ciò significa tra le altre cose che:
 // - NON MUTA i propri parametri
@@ -16,6 +16,9 @@ const initialState = {
   cart: {
     // qui dentro salviamo tutte le informazioni relative al concetto "carrello" nell'app
     content: [], // intanto facciamo il vero e proprio array che conterrà i libri
+  },
+  user: {
+    name: "", //nome dell'utente, inizialmente l'utente non è loggato e il suo initialState è stringa vuota
   },
 }
 
@@ -32,7 +35,7 @@ const mainReducer = (state = initialState, action) => {
         // tutti questi ... servono per ricreare la struttura dell'oggetto precedente!
         // anche se voglio solamente aggiungere un elemento a content, non posso rischiare di
         // perdere altri contenuti dello store!
-        ...state,
+        ...state, //Mettere questo spread operator permette di preservare l'initial state anche se a questo viene aggiunto un nuovo fattore
         cart: {
           ...state.cart,
           content: [...state.cart.content, action.payload], // dobbiamo aggiungere un libro! è trasmesso in "action.payload"
@@ -42,6 +45,15 @@ const mainReducer = (state = initialState, action) => {
         // poichè lo stato dell'app è immutabile e una funzione pura come il reducer NON PUO'
         // alterare i propri parametri (come lo state), dobbiamo trovare delle soluzioni per interagire
         // con gli array in maniera NON-MUTATIVA (https://doesitmutate.xyz)
+      }
+
+    case USER_LOGGED:
+      return {
+        ...state,
+        user: {
+          ...state.name,
+          name: action.payload,
+        },
       }
 
     case REMOVE_FROM_CART:

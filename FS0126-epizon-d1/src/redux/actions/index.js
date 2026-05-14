@@ -5,7 +5,7 @@
 
 export const ADD_TO_CART = "ADD_TO_CART"
 export const REMOVE_FROM_CART = "REMOVE_FROM_CART"
-
+export const USER_LOGGED = "USER_LOGGED"
 // queste costanti mi permettono di essere sicuro che il nome delle azioni sia giusto ovunque
 // questo perché esportando le costanti quando verranno richiamate nei vari compoment e nel reducer
 // se scritte in maniera sbagliata verranno segnalate
@@ -26,5 +26,12 @@ export const removeFromCartCreator = (book_id) => {
   return {
     type: REMOVE_FROM_CART,
     payload: book_id, // passo l'informazione sul libro da rimuovere al reducer
+  }
+}
+
+export const userLoggedCreator = (username) => {
+  return {
+    type: USER_LOGGED,
+    payload: username, // questo sarà il nome utente registrato
   }
 }
