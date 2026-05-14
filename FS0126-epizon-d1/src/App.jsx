@@ -1,13 +1,13 @@
-import './App.css'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import { Col, Container, Row } from 'react-bootstrap'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
-import CartIndicator from './components/CartIndicator'
-import BookStore from './components/BookStore'
-import Cart from './components/Cart'
-import Footer from './components/Footer'
-import { Provider } from 'react-redux'
-import store from './redux/store'
+import "./App.css"
+import "bootstrap/dist/css/bootstrap.min.css"
+import { Col, Container, Row } from "react-bootstrap"
+import { BrowserRouter, Routes, Route, Link } from "react-router-dom"
+import CartIndicator from "./components/CartIndicator"
+import BookStore from "./components/BookStore"
+import Cart from "./components/Cart"
+import Footer from "./components/Footer"
+import { Provider } from "react-redux"
+import store from "./redux/store"
 
 const App = () => {
   return (
