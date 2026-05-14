@@ -3,7 +3,7 @@
 // il suo scopo è creare e mantenere lo stato di Redux
 // il reducer verrà azionato AUTOMATICAMENTE da REDUX ogni volta che si effettua il dispatch di una action
 
-import { ADD_TO_CART, REMOVE_FROM_CART, USER_LOGGED } from "../actions"
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions"
 
 // ogni reducer è una funzione PURA, ciò significa tra le altre cose che:
 // - NON MUTA i propri parametri
@@ -13,16 +13,12 @@ import { ADD_TO_CART, REMOVE_FROM_CART, USER_LOGGED } from "../actions"
 
 // poichè il reducer tiene in vita lo stato dell'applicativo, dobbiamo crearne noi una versione iniziale
 const initialState = {
-  cart: {
-    // qui dentro salviamo tutte le informazioni relative al concetto "carrello" nell'app
-    content: [], // intanto facciamo il vero e proprio array che conterrà i libri
-  },
-  user: {
-    name: "", //nome dell'utente, inizialmente l'utente non è loggato e il suo initialState è stringa vuota
-  },
+  // qui dentro salviamo tutte le informazioni relative al concetto "carrello" nell'app
+  content: [], // intanto facciamo il vero e proprio array che conterrà i libri
+  // Dopo aver spettato i reducers, diventa il valore di quello che era la parte cart
 }
 
-const mainReducer = (state = initialState, action) => {
+const cartReducer = (state = initialState, action) => {
   // con lo stato attuale e la action appena spedita il reducer calcolerà il nuovo stato dell'app
   // inserisco initialState come valore di default per il parametro "state": questo serve alla PRIMA
   // invocazione del mainReducer, quella che inizializza lo stato
@@ -36,45 +32,21 @@ const mainReducer = (state = initialState, action) => {
         // anche se voglio solamente aggiungere un elemento a content, non posso rischiare di
         // perdere altri contenuti dello store!
         ...state, //Mettere questo spread operator permette di preservare l'initial state anche se a questo viene aggiunto un nuovo fattore
-        cart: {
-          ...state.cart,
-          content: [...state.cart.content, action.payload], // dobbiamo aggiungere un libro! è trasmesso in "action.payload"
-          // in alternativa:
-          // content: state.cart.content.concat(action.payload)
-        },
+        content: [...state.content, action.payload], // dobbiamo aggiungere un libro! è trasmesso in "action.payload"
+        // in alternativa:
+        // content: state.cart.content.concat(action.payload)
+
         // poichè lo stato dell'app è immutabile e una funzione pura come il reducer NON PUO'
         // alterare i propri parametri (come lo state), dobbiamo trovare delle soluzioni per interagire
         // con gli array in maniera NON-MUTATIVA (https://doesitmutate.xyz)
-      }
-
-    case USER_LOGGED:
-      return {
-        ...state,
-        user: {
-          ...state.name,
-          name: action.payload,
-        },
       }
 
     case REMOVE_FROM_CART:
       // ...e anche qui ritorneremo il nuovo stato di Redux
       return {
         ...state,
-        cart: {
-          ...state.cart,
-          // content: state.cart.content.filter((libro) => {
-          //   if (libro.id !== action.payload) {
-          //     return true
-          //   } else {
-          //     //  questo è proprio il libro/i libri che hanno id UGUALE all'action.payload
-          //     // cit. Gandalf "TU NON PUOI PASSARE!"
-          //     return false
-          //   }
-          // }),
-          // VERSIONE DAVIDE
-          content: state.cart.content.filter((libro) => libro.id !== action.payload),
-          // devo creare un nuovo content in cui c'è un elemento di meno rispetto al content attuale
-        },
+        content: state.content.filter((libro) => libro.id !== action.payload),
+        // devo creare un nuovo content in cui c'è un elemento di meno rispetto al content attuale
       }
 
     default:
@@ -84,4 +56,4 @@ const mainReducer = (state = initialState, action) => {
   }
 }
 
-export default mainReducer
+export default cartReducer
